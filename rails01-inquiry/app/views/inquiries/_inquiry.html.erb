@@ -1,0 +1,29 @@
+<div id="<%= dom_id inquiry %>">
+  <p>
+    <strong>Name:</strong>
+    <%= inquiry.name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= inquiry.email %>
+  </p>
+
+  <p>
+    <strong>Purpose:</strong>
+    <%= inquiry.purpose %>
+  </p>
+
+  <p>
+    <strong>Body:</strong>
+    <%= inquiry.body %>
+  </p>
+
+  <% if inquiry.images.attached? %>
+  <p>
+  <% inquiry.images.each do |i| %>
+    <%= image_tag i %>
+  <% end %>
+  </p>
+  <% end %>
+</div>

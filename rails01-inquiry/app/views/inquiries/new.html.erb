@@ -1,0 +1,17 @@
+<% content_for :title, "New inquiry" %>
+
+<div class="row">
+  <div class="offset-md-3 col-md-6">
+<h1>New inquiry</h1>
+
+<%= render "form", inquiry: @inquiry %>
+
+<% if session[:user] == "admin" %>
+<br>
+
+<div>
+  <%= link_to "Back to inquiries", inquiries_path %>
+</div>
+<% end %>
+  </div>
+</div>
