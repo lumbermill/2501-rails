@@ -1,0 +1,37 @@
+<%= form_with(model: vote) do |form| %>
+  <% if vote.errors.any? %>
+    <div class="alert alert-danger">
+      <p><%= pluralize(vote.errors.count, "error") %> prohibited this vote from being saved:</p>
+
+      <ul>
+        <% vote.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :event_id %>
+    <%= form.number_field :event_id, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :answers %>
+    <%= form.text_field :answers, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :comment %>
+    <%= form.text_field :comment, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.submit nil, class: "btn btn-primary" %>
+  </div>
+<% end %>
