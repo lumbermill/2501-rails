@@ -1,18 +1,17 @@
-<% content_for :title, "Events" %>
+<% content_for :title, "イベント一覧" %>
 
-<h1>Events</h1>
+<h1>イベント一覧</h1>
 
 <table id="events" class="table">
   <% @events.each do |event| %>
     <tr>
       <td>
-        <%= render event %>
+        <%= link_to event.title, event_path(event, token: event.token) %>
       </td>
       <td>
-        <%= link_to "Show this event", event %>
       </td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to "New event", new_event_path, class: "btn btn-primary" %>
+<%= link_to "新しいイベント", new_event_path, class: "btn btn-primary" %>

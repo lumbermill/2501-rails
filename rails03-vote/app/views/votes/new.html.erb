@@ -1,11 +1,15 @@
-<% content_for :title, "New vote" %>
+<% content_for :title, "新しい回答" %>
 
-<h1>New vote</h1>
+<h1>新しい回答</h1>
 
 <%= render "form", vote: @vote %>
 
 <br>
 
-<div>
-  <%= link_to "Back to votes", votes_path %>
+<%= link_to "イベントに戻る", event_path(@vote.event, token: @vote.event.token), class: "btn btn-light" %>
+
+<% if authenticated? %>
+<div class="for-admin mt-5">
+  <%= link_to "一覧に戻る", votes_path %>
 </div>
+<% end %>

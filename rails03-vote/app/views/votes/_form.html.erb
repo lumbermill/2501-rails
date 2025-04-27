@@ -12,8 +12,9 @@
   <% end %>
 
   <div>
-    <%= form.label :event_id %>
-    <%= form.number_field :event_id, class: "form-control" %>
+    <%= form.label :event_id, "イベント" %>
+    <%= form.hidden_field :event_id %>
+    <input type="text" value="<%= vote.event.title %>" class="form-control" readonly>
   </div>
 
   <div>

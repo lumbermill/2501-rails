@@ -24,9 +24,34 @@
   </head>
 
   <body>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-light main">
+      <div class="container main">
+      <a class="navbar-brand" href="/">
+        <%= image_tag "header-logo.png", alt: "LmLab" %>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-2">
+        </ul>
+        </div>
+        <% if authenticated? %>
+          <span class="navbar-text"><i class="bi bi-person"></i> <%= Current.session.user.email_address %>
+          <%= link_to "Sign out", session_path, data: {turbo_method: :delete}, class: "btn btn-sm btn-outline-secondary ms-2" %>
+          </span>
+        <% end %>
+      </div>
+    </nav>
+    </header>
     <div class="container">
+      <%= bootstrap_flash %>
       <%= yield %>
     </div>
+    <footer class="text-center my-5">
+      <%= link_to 'lmlab.net', 'https://lmlab.net', target: '_blank', class: 'text-muted' %>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
   </body>
 </html>

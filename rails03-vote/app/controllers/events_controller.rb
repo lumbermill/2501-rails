@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
+  allow_unauthenticated_access only: %i[ root new create show ]
 
   # GET /events or /events.json
   def index
@@ -8,6 +9,14 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
+    unless authenticated?
+      if params[:token] != @event.token
+        redirect_to root_path(@event), notice: "イベントにアクセスするにはログインするかトークンが必要です。"
+        return
+      end
+    end
+    @votes = @event.votes.order(:id)
+    @selected_rows = @event.indexes_of_top_schedules
   end
 
   # GET /events/new
@@ -22,10 +31,11 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)
+    @event.user_id = Current.session&.user&.id || 1 # If user is not logged in, set to 1 (admin)
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: "Event was successfully created." }
+        format.html { redirect_to event_path(@event,token:@event.token), notice: "イベントを新規作成しました。" }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +48,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: "Event was successfully updated." }
+        format.html { redirect_to @event, notice: "イベントを更新しました。" }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,6 +65,9 @@ class EventsController < ApplicationController
       format.html { redirect_to events_path, status: :see_other, notice: "Event was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def root
   end
 
   private
