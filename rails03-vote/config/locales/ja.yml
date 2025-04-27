@@ -28,4 +28,5 @@ ja:
               blank: "名前を入力してください"
             comment:
               blank: "コメントを入力してください"
-
+            answers:
+              blank: "候補日ごとの予定を選択してください"

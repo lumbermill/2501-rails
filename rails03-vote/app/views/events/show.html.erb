@@ -25,45 +25,12 @@
 
 <div class="row">
   <div class="col-md-6">    
-<p>あなたの予定は？</p>
-
-<%= form_with model: Vote.new do |f| %>
-  <%= f.hidden_field :event_id, value: @event.id %>
-  <div class="form-group">
-    <%= f.label :name, "あなたの名前" %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :answers_array, "あなたの予定" %>
-    <table class="table">
-    <% @event.schedules_array.each_with_index do |schedule,i| %>
-      <tr>
-      <th><%= schedule %></th>
-      <% ["o", "x", "?"].each do |answer| %>
-        <td>
-          <%= f.radio_button "answers[#{i}]", answer, class: "form-check-input" %>
-          <%= f.label nil, answer, for: "answers[#{i}]" %>
-        </td>
-      <% end %>
-      </tr>
-    <% end %>  
-    </table>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :comment %>
-    <%= f.text_field :comment, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit "回答を追加する", class: "btn btn-lg btn-primary mt-2" %>
-  </div>
-<% end %>
-
+    <p>予定を教えてください！</p>
+    <% v = Vote.new; v.event = @event %>
+    <%= render 'votes/form', vote: v, show_event_title: false %>
   </div>
   <div class="col-md-6">
-    <p>他の人にこのイベントのURLを共有して回答を追加してもらうことができます。※不特定の人が見える場所(SNSのポストなど)に貼り付けないように注意してください！</p>
+    <p>他の人にこのイベントのURLを共有して回答を追加してもらうことができます。<br>※不特定の人が見える場所(SNSのポストなど)に貼り付けないように注意してください！</p>
     <%= link_to event_url(@event, token: @event.token), event_url(@event, token: @event.token), class: "form-control" %>
   </div>
 </div>

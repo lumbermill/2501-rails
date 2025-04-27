@@ -30,6 +30,7 @@ class Event < ApplicationRecord
         o = counts[:o]
         max_count = o.max
         indexes = []
+        return indexes if max_count == 0
         o.each_with_index do |count, index|
             indexes << index if count == max_count
         end
