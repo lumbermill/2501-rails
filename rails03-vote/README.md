@@ -1,24 +1,22 @@
-# README
+# 03-vote
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## how to deploy
+(dedicated for lumbermill's environment)
 
-Things you may want to cover:
+```
+git archive main > tmp/archive.tar
+scp tmp/archive.tar sakura31:/var/www/vote/
+ssh sakura31 "cd /var/www/vote && tar xf archive.tar -C current"
+```
 
-* Ruby version
+```
+cd /var/www/vote/current
+bundle install
+rails assets:precompile
+rails db:prepare
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+sudo systemctl restart puma-vote
+sudo systemctl reload apache2
+```
