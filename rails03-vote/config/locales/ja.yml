@@ -17,16 +17,16 @@ ja:
         event:
           attributes:
             title:
-              blank: "イベント名を入力してください"
+              blank: "を入力してください"
             description:
-              blank: "説明を入力してください"
+              blank: "を入力してください"
             schedules:
-              blank: "候補日時を選択してください"
+              blank: "を入力してください"
         vote:
           attributes:
             name:
-              blank: "名前を入力してください"
+              blank: "を入力してください"
             comment:
-              blank: "コメントを入力してください"
+              blank: "を入力してください"
             answers:
               blank: "候補日ごとの予定を選択してください"

@@ -2,6 +2,8 @@
 
 <h1>イベント一覧</h1>
 
+<%= link_to "新しいイベント", new_event_path, class: "btn btn-primary" %>
+
 <table id="events" class="table">
   <% @events.each do |event| %>
     <tr>
@@ -9,9 +11,16 @@
         <%= link_to event.title, event_path(event, token: event.token) %>
       </td>
       <td>
+        <small>
+        <%= event.description.truncate(80) %>
+        </small>
+      </td>
+      <td class="text-muted text-end">
+        <small>
+        <%= event.votes.count %><br>
+        <%= event.created_at.strftime("%Y/%m/%d %H:%M") %></small>
       </td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to "新しいイベント", new_event_path, class: "btn btn-primary" %>

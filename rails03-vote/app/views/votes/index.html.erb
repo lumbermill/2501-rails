@@ -1,18 +1,23 @@
-<% content_for :title, "Votes" %>
+<% content_for :title, "回答" %>
 
-<h1>Votes</h1>
+<h1><%= @event&.title %>への回答</h1>
 
 <table id="votes" class="table">
   <% @votes.each do |vote| %>
     <tr>
       <td>
-        <%= render vote %>
+        <%= link_to vote.name, vote %>
       </td>
       <td>
-        <%= link_to "Show this vote", vote %>
+        <%= vote.answers %>
+      </td>
+      <td>
+        <%= vote.comment %>
       </td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to "New vote", new_vote_path, class: "btn btn-primary" %>
+<% if @event %>
+<%= link_to "戻る", event_path(@event), class: "btn btn-light" %>
+<% end %>

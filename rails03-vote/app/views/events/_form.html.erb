@@ -17,6 +17,11 @@
   </div>
 
   <div>
+    <%= form.label :description %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div>
     <%= form.label :schedules %>
     <%= form.text_field :schedules, placeholder: sample_schedules, class: "form-control" %>
     <small>コンマ(,)区切りで候補日を2つ以上記入します。 例: 4/30 14:00, 5/1 15:00</small>

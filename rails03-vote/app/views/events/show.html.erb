@@ -1,3 +1,5 @@
+<% content_for :title, @event.title+"の日程調整" %>
+
 <%= render @event %>
 
 <table class="table">
@@ -39,6 +41,7 @@
 <div class="mt-5 for-admin">
   <%= link_to "編集", edit_event_path(@event), class: "btn btn-light" %>
   <%= link_to "一覧", events_path, class: "btn btn-light" %>
+  <%= link_to "回答一覧", votes_path(event_id: @event.id), class: "btn btn-light" %>
 
   <%= button_to "削除する", @event, method: :delete, class: "btn btn-danger mt-2" %>
 </div>

@@ -4,7 +4,13 @@ class VotesController < ApplicationController
 
   # GET /votes or /votes.json
   def index
-    @votes = Vote.all
+    event_id = params[:event_id].to_i
+    if event_id > 0
+      @event = Event.find(event_id)
+      @votes = Vote.where(event_id: event_id).order(:id)
+    else
+      @votes = Vote.order(:id)
+    end
   end
 
   # GET /votes/1 or /votes/1.json
@@ -50,10 +56,11 @@ class VotesController < ApplicationController
 
   # DELETE /votes/1 or /votes/1.json
   def destroy
+    event_id = @vote.event_id
     @vote.destroy!
 
     respond_to do |format|
-      format.html { redirect_to votes_path, status: :see_other, notice: "Vote was successfully destroyed." }
+      format.html { redirect_to votes_path(event_id: event_id), status: :see_other, notice: "回答を削除しました。" }
       format.json { head :no_content }
     end
   end
