@@ -1,18 +1,26 @@
-<% content_for :title, "Events" %>
+<% content_for :title, "イベント一覧" %>
 
-<h1>Events</h1>
+<h1>イベント一覧</h1>
+
+<%= link_to "新しいイベント", new_event_path, class: "btn btn-primary" %>
 
 <table id="events" class="table">
   <% @events.each do |event| %>
     <tr>
       <td>
-        <%= render event %>
+        <%= link_to event.title, event_path(event, token: event.token) %>
       </td>
       <td>
-        <%= link_to "Show this event", event %>
+        <small>
+        <%= event.description.truncate(80) %>
+        </small>
+      </td>
+      <td class="text-muted text-end">
+        <small>
+        <%= event.votes.count %><br>
+        <%= event.created_at.strftime("%Y/%m/%d %H:%M") %></small>
       </td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to "New event", new_event_path, class: "btn btn-primary" %>

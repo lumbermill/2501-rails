@@ -1,12 +1,14 @@
 <% content_for :title, "Editing event" %>
 
-<h1>Editing event</h1>
+<h1>イベントの編集</h1>
 
 <%= render "form", event: @event %>
 
-<br>
+<div class="alert alert-info mt-3">
+  既に回答がついている場合、候補日時は編集せず、新規にイベントを作成してください。
+</div>
 
 <div>
-  <%= link_to "Show this event", @event %> |
-  <%= link_to "Back to events", events_path %>
+  <%= link_to "表示", @event, class: "btn btn-light" %>
+  <%= link_to "一覧", events_path, class: "btn btn-light" %>
 </div>

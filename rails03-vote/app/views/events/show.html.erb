@@ -1,8 +1,48 @@
+<% content_for :title, @event.title+"の日程調整" %>
+
 <%= render @event %>
 
-<div>
-  <%= link_to "Edit this event", edit_event_path(@event) %> |
-  <%= link_to "Back to events", events_path %>
+<table class="table">
+  <tr>
+    <th>予定</th>
+    <% @votes.each do |vote| %>
+      <th><%= vote.name %></th>
+    <% end %>
+  </tr>
+  <% @event.schedules_array.each_with_index do |schedule,i| %>
+    <tr class="<%= 'table-success' if @selected_rows.include? i %>">
+      <th><%= schedule %></th>
+      <% @votes.each do |vote| %>
+        <td><%= vote.answers_array[i] %></td>
+      <% end %>  
+    </tr>
+  <% end %>
+  <tr>
+    <th></th>
+    <% @votes.each do |vote| %>
+      <td class="text-muted small"><%= vote.comment %></td>
+    <% end %>  
+  </tr>
+</table>
 
-  <%= button_to "Destroy this event", @event, method: :delete %>
+<div class="row">
+  <div class="col-md-6">    
+    <p>予定を教えてください！</p>
+    <% v = Vote.new; v.event = @event %>
+    <%= render 'votes/form', vote: v, show_event_title: false %>
+  </div>
+  <div class="col-md-6">
+    <p>他の人にこのイベントのURLを共有して回答を追加してもらうことができます。<br>※不特定の人が見える場所(SNSのポストなど)に貼り付けないように注意してください！</p>
+    <%= link_to event_url(@event, token: @event.token), event_url(@event, token: @event.token), class: "form-control" %>
+  </div>
 </div>
+
+<% if authenticated? %>
+<div class="mt-5 for-admin">
+  <%= link_to "編集", edit_event_path(@event), class: "btn btn-light" %>
+  <%= link_to "一覧", events_path, class: "btn btn-light" %>
+  <%= link_to "回答一覧", votes_path(event_id: @event.id), class: "btn btn-light" %>
+
+  <%= button_to "削除する", @event, method: :delete, class: "btn btn-danger mt-2" %>
+</div>
+<% end %>

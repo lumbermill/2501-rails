@@ -1,12 +1,14 @@
 <% content_for :title, "Editing vote" %>
 
-<h1>Editing vote</h1>
+<h1>回答</h1>
 
 <%= render "form", vote: @vote %>
 
 <br>
 
-<div>
+<% if authenticated? %>
+  <div class="for-admin">
   <%= link_to "Show this vote", @vote %> |
   <%= link_to "Back to votes", votes_path %>
 </div>
+<% end %>

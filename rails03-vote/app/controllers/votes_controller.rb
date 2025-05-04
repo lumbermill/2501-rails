@@ -1,9 +1,16 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: %i[ show edit update destroy ]
+  allow_unauthenticated_access only: %i[ new create show ]
 
   # GET /votes or /votes.json
   def index
-    @votes = Vote.all
+    event_id = params[:event_id].to_i
+    if event_id > 0
+      @event = Event.find(event_id)
+      @votes = Vote.where(event_id: event_id).order(:id)
+    else
+      @votes = Vote.order(:id)
+    end
   end
 
   # GET /votes/1 or /votes/1.json
@@ -22,10 +29,10 @@ class VotesController < ApplicationController
   # POST /votes or /votes.json
   def create
     @vote = Vote.new(vote_params)
-
+    @vote.update_answers(params)
     respond_to do |format|
       if @vote.save
-        format.html { redirect_to @vote, notice: "Vote was successfully created." }
+        format.html { redirect_to event_path(@vote.event, token: @vote.event.token), notice: "予定を登録しました！" }
         format.json { render :show, status: :created, location: @vote }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,10 +56,11 @@ class VotesController < ApplicationController
 
   # DELETE /votes/1 or /votes/1.json
   def destroy
+    event_id = @vote.event_id
     @vote.destroy!
 
     respond_to do |format|
-      format.html { redirect_to votes_path, status: :see_other, notice: "Vote was successfully destroyed." }
+      format.html { redirect_to votes_path(event_id: event_id), status: :see_other, notice: "回答を削除しました。" }
       format.json { head :no_content }
     end
   end
@@ -65,6 +73,6 @@ class VotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def vote_params
-      params.expect(vote: [ :event_id, :name, :answers, :comment ])
+      params.expect(vote: [ :event_id, :name, :comment ]) # answers will be set in Vote.update_answers
     end
 end

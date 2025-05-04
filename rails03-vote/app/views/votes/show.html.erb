@@ -1,8 +1,8 @@
 <%= render @vote %>
 
 <div>
-  <%= link_to "Edit this vote", edit_vote_path(@vote) %> |
-  <%= link_to "Back to votes", votes_path %>
+  <%= link_to "Edit this vote", edit_vote_path(@vote), class: "btn btn-light" %>
+  <%= link_to "Back to votes", votes_path, class: "btn btn-light" %>
 
-  <%= button_to "Destroy this vote", @vote, method: :delete %>
+  <%= button_to "Destroy this vote", @vote, method: :delete, class: "btn btn-danger mt-2" %>
 </div>
