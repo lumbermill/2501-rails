@@ -12,7 +12,7 @@
       </td>
       <td>
         <small>
-        <%= event.description.truncate(80) %>
+        <%= strip_tags(event.description.to_s).truncate(80) %>
         </small>
       </td>
       <td class="text-muted text-end">
