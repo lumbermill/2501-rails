@@ -14,3 +14,6 @@ document.addEventListener("turbo:load", function() {
         console.log("Added confirm dialog to:"+elm);
     }
 });
+
+import "trix"
+import "@rails/actiontext"

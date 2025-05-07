@@ -5,6 +5,8 @@ class Event < ApplicationRecord
     validates :title, presence: true
     validates :schedules, presence: true
 
+    has_rich_text :description
+
     def schedules_array
         schedules.split(',').map(&:strip)
     end
