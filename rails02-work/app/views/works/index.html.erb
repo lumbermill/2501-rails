@@ -1,0 +1,18 @@
+<% content_for :title, "Works" %>
+
+<h1>Works</h1>
+
+<table id="works" class="table">
+  <% @works.each do |work| %>
+    <tr>
+      <td>
+        <%= render work %>
+      </td>
+      <td>
+        <%= link_to "Show this work", work %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "New work", new_work_path, class: "btn btn-primary" %>
