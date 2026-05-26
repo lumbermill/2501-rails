@@ -1,0 +1,50 @@
+<% content_for :title, "パスワードリセット" %>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <h2 class="card-title text-center mb-4">パスワードリセット</h2>
+
+          <% if flash[:alert] %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= flash[:alert] %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+
+          <p class="text-muted text-center mb-4">
+            パスワードを忘れた場合は、登録済みのメールアドレスを入力してください。<br>
+            パスワードリセットのリンクをお送りします。
+          </p>
+
+          <%= form_with url: passwords_path, class: "row g-3" do |form| %>
+            <div class="col-12">
+              <%= form.label :email_address, "メールアドレス", class: "form-label" %>
+              <%= form.email_field :email_address,
+                                   required: true,
+                                   autofocus: true,
+                                   autocomplete: "username",
+                                   placeholder: "メールアドレスを入力してください",
+                                   value: params[:email_address],
+                                   class: "form-control" %>
+            </div>
+
+            <div class="col-12">
+              <%= form.submit "リセットリンクを送信", class: "btn btn-primary w-100" %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-3">
+            <%= link_to "ログインに戻る", new_session_path, class: "text-decoration-none" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <%= link_to "ブログ一覧に戻る", blogs_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<% content_for :title, "ログイン" %>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <h2 class="card-title text-center mb-4">ログイン</h2>
+
+          <% if flash[:alert] %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= flash[:alert] %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+
+          <% if flash[:notice] %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <%= flash[:notice] %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+
+          <%= form_with url: session_path, class: "row g-3" do |form| %>
+            <div class="col-12">
+              <%= form.label :email_address, "メールアドレス", class: "form-label" %>
+              <%= form.email_field :email_address,
+                                   required: true,
+                                   autofocus: true,
+                                   autocomplete: "username",
+                                   placeholder: "メールアドレスを入力してください",
+                                   value: params[:email_address],
+                                   class: "form-control" %>
+            </div>
+
+            <div class="col-12">
+              <%= form.label :password, "パスワード", class: "form-label" %>
+              <%= form.password_field :password,
+                                      required: true,
+                                      autocomplete: "current-password",
+                                      placeholder: "パスワードを入力してください",
+                                      maxlength: 72,
+                                      class: "form-control" %>
+            </div>
+
+            <div class="col-12">
+              <%= form.submit "ログイン", class: "btn btn-primary w-100" %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-3">
+            <%= link_to "パスワードをお忘れですか？", new_password_path, class: "text-decoration-none" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <%= link_to "ブログ一覧に戻る", blogs_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

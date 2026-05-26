@@ -1,0 +1,64 @@
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% content_for :title, "Blogs" %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>ブログ一覧</h1>
+  <div class="d-flex align-items-center">
+    <% if authenticated? %>
+      <div class="btn-group me-3" role="group" aria-label="filter">
+        <%= link_to "すべて", blogs_path(filter: 'all'), class: "btn btn-outline-secondary "+(params[:filter] == 'all' ? 'active' : '') %>
+        <%= link_to "公開", blogs_path(filter: 'published'), class: "btn btn-outline-secondary "+(params[:filter] == 'published' ? 'active' : '') %>
+        <%= link_to "下書き", blogs_path(filter: 'draft'), class: "btn btn-outline-secondary "+(params[:filter] == 'draft' ? 'active' : '') %>
+      </div>
+      <%= link_to "新しい記事を書く", new_blog_path, class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "新しい記事を書く", new_blog_path, class: "btn btn-primary" if authenticated? %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row" id="blogs">
+  <% @blogs.each do |blog| %>
+    <% card_classes = "card h-100".dup %>
+    <% unless blog.published %>
+      <% card_classes << " border border-secondary bg-light" %>
+    <% end %>
+    <div class="col-md-6 mb-4">
+      <div class="<%= card_classes %>">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0"><%= blog.title %></h5>
+            <% if blog.published %>
+              <span class="badge bg-success">公開</span>
+            <% else %>
+              <span class="badge bg-secondary">下書き</span>
+            <% end %>
+          </div>
+          <p class="card-text"><%= truncate(blog.content.to_plain_text, length: 150) %></p>
+          <div class="d-flex justify-content-between align-items-center">
+            <%= link_to "詳細を見る", blog, class: "btn btn-outline-primary" %>
+            <small class="text-muted"><%= blog.created_at.strftime("%Y年%m月%d日") %></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @blogs.empty? %>
+  <div class="text-center py-5">
+    <h3 class="text-muted">まだ記事がありません</h3>
+    <% if authenticated? %>
+      <p class="text-muted">最初の記事を書いてみましょう！</p>
+      <%= link_to "新しい記事を書く", new_blog_path, class: "btn btn-primary btn-lg" %>
+    <% else %>
+      <p class="text-muted">記事が投稿されるのをお待ちください。</p>
+    <% end %>
+  </div>
+<% end %>

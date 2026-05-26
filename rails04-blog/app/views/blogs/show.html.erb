@@ -1,0 +1,43 @@
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <article class="blog-post">
+      <header class="mb-4">
+        <h1 class="blog-post-title"><%= @blog.title %></h1>
+        <div class="d-flex align-items-center mb-3">
+          <% if @blog.published %>
+            <span class="badge bg-success me-2">公開中</span>
+          <% else %>
+            <span class="badge bg-secondary me-2">下書き</span>
+          <% end %>
+          <small class="text-muted">
+            投稿日: <%= @blog.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+          </small>
+        </div>
+      </header>
+      
+      <div class="blog-post-content">
+        <%= @blog.content %>
+      </div>
+    </article>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 pt-4 border-top">
+      <%= link_to "一覧に戻る", blogs_path, class: "btn btn-outline-secondary" %>
+      <% if authenticated? %>
+        <div>
+          <%= link_to "編集", edit_blog_path(@blog), class: "btn btn-outline-primary me-2" %>
+          <%= button_to "削除", @blog, method: :delete, 
+              class: "btn btn-outline-danger",
+              confirm: "本当に削除しますか？",
+              form: { class: "d-inline" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

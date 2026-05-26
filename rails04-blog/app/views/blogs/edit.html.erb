@@ -1,0 +1,15 @@
+<% content_for :title, "記事を編集" %>
+
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>記事を編集</h1>
+      <div>
+        <%= link_to "記事を見る", @blog, class: "btn btn-outline-primary me-2" %>
+        <%= link_to "一覧に戻る", blogs_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+
+    <%= render "form", blog: @blog %>
+  </div>
+</div>

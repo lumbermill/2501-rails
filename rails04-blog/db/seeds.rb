@@ -1,0 +1,24 @@
+# This file should ensure the existence of records required to run the application in every environment (production,
+# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Example:
+#
+#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
+#     MovieGenre.find_or_create_by!(name: genre_name)
+#   end
+
+Blog.create!([
+  { title: "最初のブログ記事", content: "これは最初のブログ記事です。公開されています。", published: true },
+  { title: "2番目の記事", content: "これも公開されている記事です。", published: true },
+  { title: "下書き記事", content: "これはまだ公開されていない下書きです。", published: false },
+  { title: "Railsの勉強", content: "Railsのscaffoldは便利ですね。", published: true }
+])
+
+User.create!(
+  email_address: "admin@example.com",
+  password: "password",
+  password_confirmation: "password"
+)
+
+

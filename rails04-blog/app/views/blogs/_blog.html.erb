@@ -1,0 +1,10 @@
+<div id="<%= dom_id blog %>">
+  <h5><%= blog.title %></h5>
+  <div class="mb-2 text-muted small"><%= blog.created_at.strftime("%Y年%m月%d日") %></div>
+  <div class="mb-3"><%= blog.content %></div>
+  <% if blog.published %>
+    <span class="badge bg-success">公開中</span>
+  <% else %>
+    <span class="badge bg-secondary">下書き</span>
+  <% end %>
+</div>
